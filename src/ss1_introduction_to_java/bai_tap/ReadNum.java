@@ -8,9 +8,9 @@ public class ReadNum {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Input Number: ");
         int num = Integer.parseInt(scanner.nextLine());
-        String str ="";
+        String str = "";
         String str1 = "";
-        String str2 ="";
+        String str2 = "";
         int tens = num / 10;
         int ones = num % 10;
 
@@ -151,8 +151,8 @@ public class ReadNum {
                 System.out.println(str1);
             } else System.out.println(str1 + " " + str2);
         } else if (num < 1000) {
-            int tens1 = num % 100/10;
-            int ones1 = num % 100%10;
+            int tens1 = num % 100 / 10;
+            int ones1 = num % 100 % 10;
             int huns = num / 100;
             switch (huns) {
                 case 1:
@@ -247,8 +247,8 @@ public class ReadNum {
 
             if (ones1 == 0 && tens1 == 0) {
                 System.out.println(str + " hundred");
-            } else if (tens1==1 ) {
-                int tens2 = num %100;
+            } else if (tens1 == 1) {
+                int tens2 = num % 100;
                 switch (tens2) {
                     case 10:
                         str2 = "ten";
@@ -285,12 +285,12 @@ public class ReadNum {
                         str = "";
                 }
                 System.out.println(str + " hundred and " + str2);
-            }else
-                System.out.println(str + " hundred and " + str1 +" "+ str2);
-            }
-
-
+            } else
+                System.out.println(str + " hundred and " + str1 + " " + str2);
         }
-
     }
+}
+
+
+
 
