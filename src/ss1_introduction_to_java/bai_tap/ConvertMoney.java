@@ -11,6 +11,7 @@ public class ConvertMoney {
         System.out.println("Input USD: ");
         usd = Double.parseDouble(scanner.nextLine());
         DecimalFormat f = new DecimalFormat("#0,000");
+
         System.out.printf( usd + " usd = "+ f.format(usd*vnd)  +" vnd");
     }
 }

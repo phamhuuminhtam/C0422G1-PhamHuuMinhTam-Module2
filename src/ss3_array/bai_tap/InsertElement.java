@@ -33,7 +33,6 @@ public class InsertElement {
         for (int i = array.length - 1; i > ind; i--) {
             array[i] = array[i - 1];
         }
-
         array[ind] = add;
         System.out.println("Array after add: " + Arrays.toString(array));
     }

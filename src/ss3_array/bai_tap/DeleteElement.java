@@ -13,7 +13,6 @@ public class DeleteElement {
         for (int i = 0; i < size; i++) {
             System.out.println("Enter Element " + (i + 1) + ":");
             array[i] = Integer.parseInt(scanner.nextLine());
-
         }
 
         System.out.println("Array is: " + Arrays.toString(array));
