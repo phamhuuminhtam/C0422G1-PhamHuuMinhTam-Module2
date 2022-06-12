@@ -3,7 +3,9 @@ package ss04_class_object.bai_tap;
 import java.util.Scanner;
 
 public class QuadraticEquation {
-    double a,b,c;
+    private double a;
+    private double b;
+    private double c;
 
     public QuadraticEquation() {
     }
