@@ -8,7 +8,7 @@ public class Student {
     private String classesd;
     private boolean gender;
     static String school = "Codegym";
-
+    static int count=0;
     public Student() {
     }
 
@@ -19,6 +19,7 @@ public class Student {
         this.email = email;
         this.classesd = classesd;
         this.gender = gender;
+        count++;
     }
 
     public int getRollno() {

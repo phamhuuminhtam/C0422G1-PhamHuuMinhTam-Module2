@@ -56,6 +56,8 @@ public class StudentManager {
             if (rollCheck == student[i].getRollno()) {
 
                 if (student.length - 1 - i >= 0) System.arraycopy(student, i + 1, student, i, student.length - 1 - i);
+                Student.count--;
+                System.out.println(Student.count);
             }
         }
         display();
