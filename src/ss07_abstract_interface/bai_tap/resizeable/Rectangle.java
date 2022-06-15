@@ -1,6 +1,8 @@
-package ss06_inheritanace.thuc_hanh;
+package ss07_abstract_interface.bai_tap.resizeable;
 
-public class Rectangle extends Shape{
+
+
+public class Rectangle extends Shape implements Resizeable{
     private double width = 1.0;
     private double length = 1.0;
 
@@ -12,7 +14,7 @@ public class Rectangle extends Shape{
         this.length = length;
     }
 
-    public Rectangle(double width, double length,String color, boolean filled) {
+    public Rectangle(double width, double length, String color, boolean filled) {
         super(color, filled);
         this.width = width;
         this.length = length;
@@ -41,6 +43,13 @@ public class Rectangle extends Shape{
     }
 
     @Override
+    public void resize(double percent) {
+        this.setLength(this.getLength()*(100+percent)/100);
+        this.setWidth(this.getWidth()*(100+percent)/100);
+
+    }
+
+    @Override
     public String toString() {
         return "A Rectangle with width="
                 + getWidth()
@@ -49,7 +58,5 @@ public class Rectangle extends Shape{
                 + ", which is a subclass of "
                 + super.toString();
     }
-
-
 }
 

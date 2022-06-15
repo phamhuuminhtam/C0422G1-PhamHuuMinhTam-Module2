@@ -1,8 +1,6 @@
-package ss06_inheritanace.thuc_hanh;
+package ss07_abstract_interface.bai_tap.resizeable;
 
-import ss07_abstract_interface.bai_tap.resizeable.Resizeable;
-
-public   class Shape {
+public abstract  class Shape implements Resizeable {
     private  String color = "green";
     private  boolean filled = true;
 
@@ -29,7 +27,7 @@ public   class Shape {
     public void setFilled(boolean filled) {
         this.filled = filled;
     }
-
+    public abstract double getArea();
     @Override
     public String toString() {
         return "A Shape with color of "
