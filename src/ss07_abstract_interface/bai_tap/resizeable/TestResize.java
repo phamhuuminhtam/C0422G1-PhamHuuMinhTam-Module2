@@ -6,6 +6,8 @@ public class TestResize {
         shape[0] = new Circle(10,"blue",true);
         shape[1] = new Square(20.5,"blue",true);
         shape[2]= new Rectangle(19,20.5,"White", true);
+
+
         System.out.println("Pre-resize");
         for(Shape s: shape){
             System.out.println(s);
