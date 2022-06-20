@@ -1,11 +1,12 @@
 package ss11_stack_queue.bai_tap;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
 
-public class PalindromeCheck {
-    static Stack<Character> stack = new Stack<>();
-
+public class PalindromeCheckQueue {
+    static Queue<Character> queue = new ArrayDeque<>() ;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -15,7 +16,7 @@ public class PalindromeCheck {
 //        System.out.println(stringNew);
         for (int i = 0; i < stringNew.length(); i++) {
 
-            stack.push(stringNew.charAt(i));
+            queue.add(stringNew.charAt(i));
         }
         if (checkPalindrome(stringNew)) {
             System.out.println("This is Palindrome String");
@@ -24,8 +25,8 @@ public class PalindromeCheck {
     }
 
     public static boolean checkPalindrome(String string) {
-        for (int i = 0; i < string.length(); i++) {
-            if (stack.pop() != string.charAt(i)) {
+        for (int i = string.length()-1; i >=0; i--) {
+            if (queue.poll() != string.charAt(i)) {
                 return false;
             }
         }
