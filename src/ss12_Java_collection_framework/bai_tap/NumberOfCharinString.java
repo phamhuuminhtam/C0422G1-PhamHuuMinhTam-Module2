@@ -15,9 +15,9 @@ public class NumberOfCharinString {
                 continue;
             }
             if(!charlist.containsKey(string1.charAt(i))){
-                count=1;
-                charlist.put(string1.charAt(i),count);
-            }else  charlist.put(string1.charAt(i),count+=1);
+
+                charlist.put(string1.charAt(i),1);
+            }else  charlist.replace(string1.charAt(i),charlist.get(string1.charAt(i))+1);
         }
         System.out.println(charlist);
 
