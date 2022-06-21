@@ -13,11 +13,10 @@ public class BinaryConvert {
             stack.add(num % 2);
             num = num / 2;
         } while (num > 0);
-        String string = "";
         while (!stack.isEmpty()) {
-            string += stack.pop();
+            System.out.print(stack.pop());
         }
-        System.out.println(string);
+
     }
 }
 
