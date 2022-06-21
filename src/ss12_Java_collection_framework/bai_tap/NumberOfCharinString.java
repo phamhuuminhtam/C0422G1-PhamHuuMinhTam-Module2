@@ -19,5 +19,6 @@ public class NumberOfCharinString {
         }
         System.out.println(charlist);
 
+
     }
 }
