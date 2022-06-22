@@ -1,6 +1,7 @@
 package ss12_Java_collection_framework.bai_tap.mvc.service.implement;
 
-import ss12_Java_collection_framework.bai_tap.Product;
+
+import ss12_Java_collection_framework.bai_tap.mvc.model.Product;
 import ss12_Java_collection_framework.bai_tap.mvc.service.IProductService;
 
 
@@ -28,10 +29,10 @@ public class ProductService implements IProductService {
         do {
             System.out.println("Enter product ID: ");
             id = Integer.parseInt(scanner.nextLine());
-            if (checkID(id)) {
+            if (checkId(id)) {
                 System.out.println("Id is exist! Enter another ID please!");
             }
-        } while (checkID(id));
+        } while (checkId(id));
 
         System.out.println("Enter product price: ");
         int price = Integer.parseInt(scanner.nextLine());
@@ -47,10 +48,10 @@ public class ProductService implements IProductService {
         do {
             System.out.println("Enter product ID: ");
             id = Integer.parseInt(scanner.nextLine());
-            if (!checkID(id)) {
+            if (!checkId(id)) {
                 System.out.println("Id is not Found, Enter another ID please! ");
             }
-        } while (!checkID(id));
+        } while (!checkId(id));
         for (Product p : productsList) {
             if (id == p.getId()) {
                 System.out.println("Enter product  new price: ");
@@ -71,10 +72,10 @@ public class ProductService implements IProductService {
         do {
             System.out.println("Enter product ID: ");
             id = Integer.parseInt(scanner.nextLine());
-            if (!checkID(id)) {
+            if (!checkId(id)) {
                 System.out.println("Id is not Found, Enter another ID please! ");
             }
-        } while (!checkID(id));
+        } while (!checkId(id));
         for (Product p : productsList) {
             if (id == p.getId()) {
                 productsList.remove(p);
@@ -133,9 +134,8 @@ public class ProductService implements IProductService {
         }
     }
 
-
     @Override
-    public boolean checkID(int id) {
+    public boolean checkId(int id) {
         for (Product p : productsList) {
             if (p.getId() == id) {
                 return true;
