@@ -8,23 +8,33 @@ import java.util.Collections;
 import java.util.Stack;
 
 public class FindMaxString {
-    static String string = "abcabcdgabmnsxy";
+    static String string = "abcabcdgabmnpqtasxy";
     static Stack<Character> charList = new Stack<>();
     static Stack<Character> charList1 = new Stack<>();
 
     public static void main(String[] args) {
+//        for (int i = 0; i < string.length(); i++) {
+//            charList.add(string.charAt(i));
+//            for (int j = i + 1; j < string.length(); j++) {
+//                if (charList.peek() < string.charAt(j)) {
+//                    charList.add(string.charAt(j));
+//                } else break;
+//            }
+//            if (charList.size() > charList1.size()) {
+//                charList1.clear();
+//                charList1.addAll(charList);
+//            }
+//            charList.clear();
+//        }
         for (int i = 0; i < string.length(); i++) {
-            charList.add(string.charAt(i));
-            for (int j = i + 1; j < string.length(); j++) {
-                if (charList.peek() < string.charAt(j)) {
-                    charList.add(string.charAt(j));
-                } else break;
+            if (charList.size()>1 && charList.peek()>=string.charAt(i)){
+                charList.clear();
             }
-            if (charList.size() > charList1.size()) {
+            charList.add(string.charAt(i));
+            if (charList1.size()<charList.size()){
                 charList1.clear();
                 charList1.addAll(charList);
             }
-            charList.clear();
         }
         for (Character c : charList1) {
             System.out.print(c);
