@@ -2,7 +2,7 @@ package ss17_binaryfile_serialization.bai_tap.copyfilebinary;
 
 import java.io.*;
 
-public class Copy2 implements Serializable {
+public class Copy2 {
     public static void copyFile(String sourcePatch, String targetPath) {
         FileOutputStream fileOutputStream =null;
         FileInputStream fileInputStream  =null;
