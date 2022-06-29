@@ -9,7 +9,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CrawlNew {
+public class CrawlNews {
     public static void main(String[] args) {
         try {
             URL url = new URL("http://dantri.com.vn/the-gioi.htm");
