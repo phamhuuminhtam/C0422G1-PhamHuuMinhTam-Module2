@@ -1,20 +1,22 @@
 package model;
 
+import model.facility.Facility;
 import model.person.Customer;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
-public class Booking {
+public class Booking implements Comparable<Booking> {
     private String bookingCode;
     private LocalDate startDay;
     private LocalDate endDay;
     private Customer iD;
-    private String serviceName;
+    private Facility serviceName;
 
     public Booking() {
     }
 
-    public Booking(String bookingCode, LocalDate startDay, LocalDate endDay, Customer iD, String serviceName) {
+    public Booking(String bookingCode, LocalDate startDay, LocalDate endDay, Customer iD, Facility serviceName) {
         this.bookingCode = bookingCode;
         this.startDay = startDay;
         this.endDay = endDay;
@@ -54,22 +56,48 @@ public class Booking {
         this.iD = iD;
     }
 
-    public String getServiceName() {
+    public Facility getServiceName() {
         return serviceName;
     }
 
-    public void setServiceName(String serviceName) {
+    public void setServiceName(Facility serviceName) {
         this.serviceName = serviceName;
+    }
+
+    public String getInfo() {
+        return bookingCode + "," + startDay + "," + endDay + "," + iD.getID() + "," + serviceName.getServiceName();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Booking booking = (Booking) o;
+        return bookingCode.equals(booking.bookingCode) && startDay.equals(booking.startDay) && endDay.equals(booking.endDay);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bookingCode, startDay, endDay);
     }
 
     @Override
     public String toString() {
-        return "Booking{" +
-                "bookingCode='" + bookingCode + '\'' +
-                ", startDay=" + startDay +
-                ", endDay=" + endDay +
-                ", iD=" + iD +
-                ", serviceName='" + serviceName + '\'' +
-                '}';
+        return "Booking:" +
+                "\n Mã booking " + bookingCode  +
+                "\n Ngày bắt đầu " + startDay +
+                "\n Ngày kết thúc "  + endDay + "\n"+
+                " -Khách hàng booking: " + iD.getName() +"\n"+
+                " -ServiceName: " + serviceName.getServiceName() ;
+    }
+
+    @Override
+    public int compareTo(Booking o) {
+        if (this.startDay.compareTo(o.startDay) > 0) {
+            return 1;
+        } else if (this.startDay.compareTo(o.startDay) < 0)
+            return -1;
+        else if (this.endDay.compareTo(o.endDay) > 0) return 1;
+        else return -1;
     }
 }

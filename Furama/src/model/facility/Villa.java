@@ -1,5 +1,7 @@
 package model.facility;
 
+import java.util.Objects;
+
 public class Villa extends Facility{
  private String roomStandard;
  private double poolArea;
@@ -8,8 +10,8 @@ public class Villa extends Facility{
  public Villa() {
  }
 
- public Villa(String serviceName, double squareUse, double cost, int numberOfPeople, String rentalType, String roomStandard, double poolArea, int numberOfFloors) {
-  super(serviceName, squareUse, cost, numberOfPeople, rentalType);
+ public Villa(String serviceCode, String serviceName, double squareUse, double cost, int numberOfPeople, String rentalType, String roomStandard, double poolArea, int numberOfFloors) {
+  super(serviceCode, serviceName, squareUse, cost, numberOfPeople, rentalType);
   this.roomStandard = roomStandard;
   this.poolArea = poolArea;
   this.numberOfFloors = numberOfFloors;
@@ -47,4 +49,11 @@ public class Villa extends Facility{
           ", numberOfFloors=" + numberOfFloors +
           '}';
  }
+
+ @Override
+ public String getInfoToCSV() {
+  return super.getInfoToCSV()+"," +roomStandard+"," +poolArea+"," +numberOfFloors;
+ }
+
+
 }

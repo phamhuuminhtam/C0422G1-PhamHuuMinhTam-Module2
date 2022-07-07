@@ -1,21 +1,23 @@
 package service.implement;
 
+import common.CheckAge;
+import common.UserException;
 import model.person.Employee;
 import service.EmployeeService;
+import ultility.IncreaseID;
 import ultility.ReadAndWrite;
-
-import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 public class EmployeeImpl implements EmployeeService {
-    public static ArrayList<String> levellist = new ArrayList();
-    public static LinkedList<String> positionList = new LinkedList<>();
-    public static ArrayList<Employee> employeeList = new ArrayList();
-    public static final String EMPLOYEE_CSV_PATH ="src/data/EmployeeCSV.csv";
+    private static ArrayList<String> levellist = new ArrayList();
+    private static LinkedList<String> positionList = new LinkedList<>();
+    private static ArrayList<Employee> employeeList = new ArrayList();
+    private static final String EMPLOYEE_CSV_PATH ="src/data/EmployeeCSV.csv";
     Scanner scanner = new Scanner(System.in);
 
     static {
@@ -46,35 +48,37 @@ public class EmployeeImpl implements EmployeeService {
     @Override
     public void add() {
         String id;
-        boolean flag=false;
-
-        do {
-            int count=0;
-            System.out.println("Nhập mã nhân viên");
-            id = scanner.nextLine();
-            List<Employee> employeeList = ReadAndWrite.readEmployeeToCSV(EMPLOYEE_CSV_PATH);
-            for (Employee e:employeeList) {
-                if (e.getID().equals(id)){
-                    System.out.println("ID đã tồn tại, vui lòng nhập ID mới");
-                    flag = true;
-                    count++;
-                    break;
-                }
-            }
-            if(count==0) flag = false;
-
-        }while (flag);
-
+//        boolean flag=false;
+//
+//        do {
+//            int count=0;
+//            System.out.println("Nhập mã nhân viên");
+//            id = scanner.nextLine();
+//            List<Employee> employeeList = ReadAndWrite.readEmployeeToCSV(EMPLOYEE_CSV_PATH);
+//            for (Employee e:employeeList) {
+//                if (e.getID().equals(id)){
+//                    System.out.println("ID đã tồn tại, vui lòng nhập ID mới");
+//                    flag = true;
+//                    count++;
+//                    break;
+//                }
+//            }
+//            if(count==0) flag = false;
+//
+//        }while (flag);
+            id = IncreaseID.increaseEmployeeID()+"";
 
         System.out.println("Nhập tên nhân viên");
         String name = scanner.nextLine();
 
-        LocalDate dayOfBirth;
+        LocalDate dayOfBirth ;
         do{
             try {
-                System.out.println("nhập ngày sinh khách hàng");
-                dayOfBirth = LocalDate.parse(scanner.nextLine());
-                break;
+                System.out.println("nhập ngày sinh nhân viên");
+                dayOfBirth = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd-MM-yyyy") );
+                if (CheckAge.checkAge(dayOfBirth)){
+                    break;
+                }else throw new UserException("Ngày sinh phải nhỏ hơn ngày hiện tại 18 năm, người dùng không được quá 100 tuổi");
             }catch (Exception e){
                 e.printStackTrace();
                 System.out.println("Nhập không đúng định dạng");
@@ -174,12 +178,16 @@ public class EmployeeImpl implements EmployeeService {
                System.out.println("Nhập tên nhân viên");
                e.setName(scanner.nextLine());
 
-               LocalDate dayOfBirth;
+               LocalDate dayOfBirth ;
                do{
                    try {
                        System.out.println("nhập ngày sinh khách hàng");
-                       e.setDayOfBirth(LocalDate.parse(scanner.nextLine()));
-                       break;
+                       dayOfBirth= LocalDate.parse(scanner.nextLine(),DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                       if (CheckAge.checkAge(dayOfBirth)){
+                           e.setDayOfBirth(dayOfBirth);
+                           break;
+                       }else throw new UserException("Ngày sinh phải nhỏ hơn ngày hiện tại 18 năm, người dùng không được quá 100 tuổi");
+
                    }catch (Exception e1){
                        e1.printStackTrace();
                        System.out.println("Nhập không đúng định dạng");
@@ -264,7 +272,9 @@ public class EmployeeImpl implements EmployeeService {
                System.out.println("Nhập lương nhân viên");
                e.setSalary(Double.parseDouble(scanner.nextLine()));
                ReadAndWrite.writeEmployeeToCSV(employeeList,EMPLOYEE_CSV_PATH,false);
-           }else System.out.println("Nhân viên chưa có dữ liệu");
+               return;
+           }
         }
+        System.out.println("Nhân viên chưa có dữ liệu");
     }
 }

@@ -10,7 +10,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CrawlNews {
+    
     public static void main(String[] args) {
+
         try {
             URL url = new URL("http://dantri.com.vn/the-gioi.htm");
             // open the stream and put it into BufferedReader

@@ -1,11 +1,15 @@
 package service.implement;
 
+import common.CheckAge;
+import common.UserException;
 import model.person.Customer;
 import model.person.Employee;
 import service.CustomerService;
+import ultility.IncreaseID;
 import ultility.ReadAndWrite;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -37,33 +41,38 @@ public class CustomerImpl implements CustomerService {
         String id;
         boolean flag = false;
 
-        do {
-            int count = 0;
-            System.out.println("Nhập mã khách hàng");
-            id = scanner.nextLine();
-            List<Customer> customerList = ReadAndWrite.readCustomerToCSV(CUSTOMER_PATH_CSV);
-            for (Customer e : customerList) {
-                if (e.getID().equals(id)) {
-                    System.out.println("ID đã tồn tại, vui lòng nhập ID mới");
-                    flag = true;
-                    count++;
-                    break;
-                }
-            }
-            if (count == 0) flag = false;
+//        do {
+//            int count = 0;
+//            System.out.println("Nhập mã khách hàng");
+//            id = scanner.nextLine();
+//            List<Customer> customerList = ReadAndWrite.readCustomerToCSV(CUSTOMER_PATH_CSV);
+//            for (Customer e : customerList) {
+//                if (e.getID().equals(id)) {
+//                    System.out.println("ID đã tồn tại, vui lòng nhập ID mới");
+//                    flag = true;
+//                    count++;
+//                    break;
+//                }
+//            }
+//            if (count == 0) flag = false;
+//
+//        } while (flag);
 
-        } while (flag);
+         id = IncreaseID.increaseID()+"";
         System.out.println("nhập tên khách hàng");
         String name = scanner.nextLine();
         LocalDate dayOfBirth;
         do {
             try {
                 System.out.println("nhập ngày sinh khách hàng");
-                dayOfBirth = LocalDate.parse(scanner.nextLine());
-                break;
+                dayOfBirth = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                if (CheckAge.checkAge(dayOfBirth)) {
+                    break;
+                } else
+                    throw new UserException("Ngày sinh phải nhỏ hơn ngày hiện tại 18 năm, người dùng không được quá 100 tuổi");
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println("Nhập không đúng định dạng");
+                System.out.println("Nhập không đúng định dạng vui lòng nhập lại");
             }
         } while (true);
 
@@ -111,6 +120,7 @@ public class CustomerImpl implements CustomerService {
         List<Customer> customers = new ArrayList<>();
         customers.add(new Customer(id, name, dayOfBirth, gender, personalCode, phoneNumber, mail, typeOfGuest, address));
         ReadAndWrite.writeCustomerToCSV(customers, CUSTOMER_PATH_CSV, true);
+        System.out.println("Thêm mới thành công");
 
     }
 
@@ -128,8 +138,13 @@ public class CustomerImpl implements CustomerService {
                 do {
                     try {
                         System.out.println("nhập ngày sinh khách hàng");
-                        e.setDayOfBirth(LocalDate.parse(scanner.nextLine()));
-                        break;
+                        dayOfBirth = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                        if (CheckAge.checkAge(dayOfBirth)) {
+                            e.setDayOfBirth(dayOfBirth);
+                            break;
+                        } else
+                            throw new UserException("Ngày sinh phải nhỏ hơn ngày hiện tại 18 năm, người dùng không được quá 100 tuổi");
+
                     } catch (Exception e1) {
                         e1.printStackTrace();
                         System.out.println("Nhập không đúng định dạng");
@@ -138,7 +153,7 @@ public class CustomerImpl implements CustomerService {
                 System.out.println("nhập giới tính khách hàng");
                 e.setGender(scanner.nextLine());
                 System.out.println("nhập CMND khách hàng");
-                e.setPersonalCode(scanner.nextLine()) ;
+                e.setPersonalCode(scanner.nextLine());
                 System.out.println("nhập số điện thoại khách hàng");
                 e.setPhoneNumber(scanner.nextLine());
                 System.out.println("nhập email khách hàng");
@@ -177,8 +192,10 @@ public class CustomerImpl implements CustomerService {
                 e.setTypeOfGuest(typeOfGuest);
                 System.out.println("nhập địa chỉ khách hàng");
                 e.setAddress(scanner.nextLine());
-                ReadAndWrite.writeCustomerToCSV(customerList,CUSTOMER_PATH_CSV,false);
-            } else System.out.println("Khách hàng này chưa có dữ liệu");
+                ReadAndWrite.writeCustomerToCSV(customerList, CUSTOMER_PATH_CSV, false);
+                return;
+            }
         }
+        System.out.println("Khách hàng này chưa có dữ liệu");
     }
 }

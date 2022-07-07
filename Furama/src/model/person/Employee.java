@@ -1,5 +1,6 @@
 package model.person;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 public class Employee extends Person {
@@ -48,10 +49,11 @@ private double salary;
 
     @Override
     public String toString() {
+        DecimalFormat decimalFormat = new DecimalFormat("#0,000");
         return "Employee{" + super.toString() +
                 ", level='" + level + '\'' +
                 ", position='" + position + '\'' +
-                ", salary=" + salary +
+                ", salary=" +decimalFormat.format(salary) +
                 '}';
     }
 }

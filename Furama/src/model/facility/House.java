@@ -7,8 +7,8 @@ public class House extends Facility{
     public House() {
     }
 
-    public House(String serviceName, double squareUse, double cost, int numberOfPeople, String rentalType, int numberOfFloors, String roomStandard) {
-        super(serviceName, squareUse, cost, numberOfPeople, rentalType);
+    public House(String serviceCode, String serviceName, double squareUse, double cost, int numberOfPeople, String rentalType, int numberOfFloors, String roomStandard) {
+        super(serviceCode, serviceName, squareUse, cost, numberOfPeople, rentalType);
         this.numberOfFloors = numberOfFloors;
         this.roomStandard = roomStandard;
     }
@@ -35,5 +35,10 @@ public class House extends Facility{
                 " numberOfFloors=" + numberOfFloors +
                 ", roomStandard='" + roomStandard + '\'' +
                 '}';
+    }
+
+    @Override
+    public String getInfoToCSV() {
+        return super.getInfoToCSV()+"," +numberOfFloors+"," +roomStandard;
     }
 }

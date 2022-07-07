@@ -1,6 +1,9 @@
 package model.facility;
 
+import java.util.Objects;
+
 public abstract class Facility {
+    private String serviceCode;
    private String serviceName;
     private  double squareUse;
     private   double cost;
@@ -10,12 +13,21 @@ public abstract class Facility {
     public Facility() {
     }
 
-    public Facility(String serviceName, double squareUse, double cost, int numberOfPeople, String rentalType) {
+    public Facility(String serviceCode, String serviceName, double squareUse, double cost, int numberOfPeople, String rentalType) {
+        this.serviceCode = serviceCode;
         this.serviceName = serviceName;
         this.squareUse = squareUse;
         this.cost = cost;
         this.numberOfPeople = numberOfPeople;
         this.rentalType = rentalType;
+    }
+
+    public String getServiceCode() {
+        return serviceCode;
+    }
+
+    public void setServiceCode(String serviceCode) {
+        this.serviceCode = serviceCode;
     }
 
     public String getServiceName() {
@@ -59,13 +71,29 @@ public abstract class Facility {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Facility facility = (Facility) o;
+        return serviceName.equals(facility.serviceName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(serviceName);
+    }
+
+    public String getInfoToCSV(){
+        return serviceCode+","+serviceName+"," +squareUse+"," +cost+"," +numberOfPeople+"," +rentalType;
+    }
+
+    @Override
     public String toString() {
-        return "Facility{" +
-                "serviceName='" + serviceName + '\'' +
+        return  "serviceCode='" + serviceCode + '\'' +
+                ", serviceName='" + serviceName + '\'' +
                 ", squareUse=" + squareUse +
                 ", cost=" + cost +
                 ", numberOfPeople=" + numberOfPeople +
-                ", rentalType='" + rentalType + '\'' +
-                '}';
+                ", rentalType='" + rentalType + '\'';
     }
 }
